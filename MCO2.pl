@@ -257,5 +257,4 @@ hypothesis(pneumonia, Z, AgeGroup) :-
     symptoms('chest pain'),
     symptoms('shortness of breath'),
     symptoms(fatigue).
-
-
+%change
