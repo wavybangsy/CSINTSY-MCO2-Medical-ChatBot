@@ -52,8 +52,7 @@ symptoms(confusion) :-
 %asserted: symptoms('discolored skin patches or nodules') 
     %verify('do you have patches of discolored skin or nodules (y/n) ?').
 symptoms('nerve damage') :-
-    verify('do the affected areas in the skin feel numb (y/n) ?') ;
-    verify('do you experience weakness or paralysis in hands or feet (y/n) ?').
+    verify('do the affected areas in the skin feel numb (y/n) ?').
 symptoms('enlarged nerves') :-
     verify('do you observe enlarged nerves in your elbow or knee or sides of neck (y/n) ?').
 
@@ -62,9 +61,6 @@ symptoms('enlarged nerves') :-
     %verify('do you have rashes or itchy skin (y/n) ?').
 symptom('exposure to contaminated water') :-
     verify('have you been exposed to a dirty or possibly contaminated water (y/n) ?').
-symptom('exposure to contaminated water') :-
-    verify('have you been exposed to a dirty or possibly contaminated water (y/n) ?'),
-    verify('has your exposure been 1-2 months ago? (y/n) ?').
 
 
 info(AGE, adult) :-
@@ -227,7 +223,7 @@ hypothesis(schistosomiasis, Z, _AgeGroup) :-
 hypothesis(schistosomiasis, Z, _AgeGroup) :-
     Z = skingroup,
     symptoms(rashes),
-    symptom('exposure to contaminated water'),
+    symptoms('exposure to contaminated water'),
     symptoms(fever),
     symptoms(chills),
     symptoms('muscle aches').
