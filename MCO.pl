@@ -59,8 +59,9 @@ symptoms('enlarged nerves') :-
 %[E] Schistosomiasis Symptoms
 %symptoms(rashes) :-
     %verify('do you have rashes or itchy skin (y/n) ?').
-symptom('exposure to contaminated water') :-
-    verify('have you been exposed to a dirty or possibly contaminated water (y/n) ?').
+symptoms('exposure to contaminated water') :-
+    verify('have you been exposed to a dirty or possibly contaminated water (y/n) ?'),
+    verify('has your exposure been 1-2 months ago? (y/n) ?').
 
 
 info(AGE, adult) :-
@@ -76,8 +77,69 @@ range(X, K, Y) :-
 X >= K , X < Y.
 
 
+
+% Facts/Rules Diseases
+hypothesis(malaria, Z, _AgeGroup) :-
+    Z = fevergroup,
+    symptoms(fever),
+    symptoms(chills),
+    symptoms(headache),
+    symptoms('muscle aches'),
+    symptoms(malaise),
+    symptoms(nausea),
+    symptoms(vomiting),
+    hypothesis(diarrhea, Z, _AgeGroup).
+
+hypothesis(diarrhea, Z, _AgeGroup) :-
+    Z = fevergroup,
+    symptoms(fever),
+    symptoms(chills),
+    symptoms('watery stools'),
+    symptoms('stomach pain'),
+    symptoms(bloating),
+    symptoms('body aches').
+
+hypothesis(leprosy, Z, _AgeGroup):-
+    Z = skingroup,
+    symptoms('discolored skin patches or nodules'),
+    symptoms('nerve damage'),
+    symptoms('enlarged nerves').
+
+hypothesis(schistosomiasis, Z, _AgeGroup) :-
+    Z = skingroup,
+    symptoms(rashes),
+    symptoms('exposure to contaminated water').
+    
+hypothesis(pneumonia, Z, AgeGroup) :-
+    Z = respgroup, 
+    AgeGroup = adult,
+    symptoms(cough),
+    symptoms('chest pain'),
+    symptoms('shortness of breath'),
+    symptoms(fatigue).
+
+hypothesis(pneumonia, Z, AgeGroup) :-
+    Z = respgroup,
+    AgeGroup = elder,
+    symptoms(cough),
+    symptoms('chest pain'),
+    symptoms('shortness of breath'),
+    symptoms(fatigue),
+    symptoms(confusion).
+
+hypothesis(pneumonia, Z, AgeGroup) :-
+    Z = respgroup,
+    AgeGroup = child,
+    symptoms(cough),
+    symptoms(vomiting),
+    symptoms('chest pain'),
+    symptoms('shortness of breath'),
+    symptoms(fatigue).
+%change
+
+
 % indicator of fever symptoms
-diagnose(A, fevergroup, AgeGroup) :-
+diagnose(A, AgeGroup) :-
     A = a,
     write('do you have a fever (y/n) ?'), nl,
     read(Fever),
@@ -85,28 +147,28 @@ diagnose(A, fevergroup, AgeGroup) :-
     (Fever = y, A = a)
     ->
     assertz(symptoms(fever)),
-    write('how long has fever been troubling you? '), nl,
-        format('A - less than one day~NB - one day to one week~NC - one week to one month~ND - more than a month~N', []),
-        read(FeverDays),
-        write('how high is your fever? '), nl,
-        format('A - low grade fever (between 37.5 °C - 38 °C)~NB - fever (between 38.1 °C - 40 °C) ~NC - high-grade fever (higher than 40 °C)~N', []),
-        read(FeverGrade),
-        hypothesis(DS, X, AGE),
+    %write('how long has fever been troubling you? '), nl,
+        %format('A - less than one day~NB - one day to one week~NC - one week to one month~ND - more than a month~N', []),
+        %read(FeverDays),
+       % write('how high is your fever? '), nl,
+        %format('A - low grade fever (between 37.5 °C - 38 °C)~NB - fever (between 38.1 °C - 40 °C) ~NC - high-grade fever (higher than 40 °C)~N', []),
+        %read(FeverGrade),
+        hypothesis(DS, fevergroup, AgeGroup),
         format('You probably have ~w', [DS])
     ;
     (Fever = n, A = a)
-    -> diagnose(b, skingroup, AgeGroup).
+    -> diagnose(b, AgeGroup).
 
 
  % indicator of skin symptoms
-diagnose(A, skingroup, AgeGroup) :-
+diagnose(A, AgeGroup) :-
     A = b,
     write('do you have rashes or itchy skin (y/n) ?'), nl,
     read(Rash),
     
     (Rash = y , A = b)
     ->  assertz(symptoms(rashes)),
-        hypothesis(DS, X, AGE),
+        hypothesis(DS, skingroup, AgeGroup),
         format('You probably have ~w', [DS])
     ;
     (Rash = n , A = b)
@@ -116,25 +178,25 @@ diagnose(A, skingroup, AgeGroup) :-
     
     (Patch = y)
     ->  assertz(symptoms('discolored skin patches or nodules')),
-        hypothesis(DS, X, AGE),
+        hypothesis(DS, skingroup, AgeGroup),
         format('You probably have ~w', [DS])
     ;
     (Patch = n)
-    -> diagnose(c, respgroup, AgeGroup)).
+    -> diagnose(c, AgeGroup)).
 
 % indicator of respiratory symptoms
-diagnose(A, respgroup,AgeGroup) :-
+diagnose(A, AgeGroup) :-
     A = c,
     write('do you have a cough (y/n) ?'), nl,
     read(Cough),
     
     (Cough = y, A = c)
     ->  assertz(symptoms(cough)),
-        hypothesis(DS, X, AGE),
+        hypothesis(DS, resgroup, AgeGroup),
         format('You probably have ~w', [DS])
     ;
     (Cough = n, A = c)
-    -> diagnose(a, fevergroup, AgeGroup).
+    -> diagnose(a, AgeGroup).
 
 
 :- dynamic(yes/1).
@@ -168,89 +230,24 @@ start :-
 continueConsult(ANS) :-
     ANS == y 
     ->  write('Okay! Please answer the following questions.'), nl,
-        collect(ANS) 
+        collect
     ;
     ANS == n
     ->  write('Alright. Type in "start" to talk to me again.').
 
-collect(ANS) :-
+collect :-
     write('Name: '),        read(NAME),
     write('Age: '),         read(AGE),
-    write('Gender: '),      read(GEN),
-    write('Height: '),      read(HEI),
-    write('Weight: '),      read(WEI),
-    write('BP: '),          read(BP),
-    write('Heart Beat: '),  read(HEARTB),
+  %  write('Gender: '),      read(GEN),
+   % write('Height: '),      read(HEI),
+   % write('Weight: '),      read(WEI),
+   % write('BP: '),          read(BP),
+   % write('Heart Beat: '),  read(HEARTB),
     info(AGE, AgeGroup),
 
     format(' ~N~w, what are your main complaints? ', [NAME]), nl,
     format('a - general~Nb - skin problem~Nc - respiratory', []), nl,
     read(A),
-    diagnose(A, X, AgeGroup).
+    diagnose(A, AgeGroup).
 
 
-% Facts/Rules Diseases
-hypothesis(malaria, Z, _AgeGroup) :-
-    Z = fevergroup,
-    symptoms(fever),
-    symptoms(chills),
-    symptoms(headache),
-    symptoms(malaise),
-    symptoms(nausea),
-    symptoms(vomiting),
-    symptoms(diarrhea).
-
-hypothesis(diarrhea, Z, _AgeGroup) :-
-    Z = fevergroup,
-    symptoms(fever),
-    symptoms(chills),
-    symptoms('watery stools'),
-    symptoms('stomach pain'),
-    symptoms(bloating),
-    symptoms('body aches').
-
-hypothesis(leprosy, Z, _AgeGroup):-
-    Z = skingroup,
-    symptoms('discolored skin patches or nodules'),
-    symptoms('nerve damage'),
-    symptoms('enlarged nerves').
-
-hypothesis(schistosomiasis, Z, _AgeGroup) :-
-    Z = skingroup,
-    symptoms(rashes),
-    symptoms('exposure to contaminated water').
-
-hypothesis(schistosomiasis, Z, _AgeGroup) :-
-    Z = skingroup,
-    symptoms(rashes),
-    symptoms('exposure to contaminated water'),
-    symptoms(fever),
-    symptoms(chills),
-    symptoms('muscle aches').
-
-hypothesis(pneumonia, Z, AgeGroup) :-
-    Z = respgroup, 
-    AgeGroup = adult,
-    symptoms(cough),
-    symptoms('chest pain'),
-    symptoms('shortness of breath'),
-    symptoms(fatigue).
-
-hypothesis(pneumonia, Z, AgeGroup) :-
-    Z = respgroup,
-    AgeGroup = elder,
-    symptoms(cough),
-    symptoms('chest pain'),
-    symptoms('shortness of breath'),
-    symptoms(fatigue),
-    symptoms(confusion).
-
-hypothesis(pneumonia, Z, AgeGroup) :-
-    Z = respgroup,
-    AgeGroup = child,
-    symptoms(cough),
-    symptoms(vomiting),
-    symptoms('chest pain'),
-    symptoms('shortness of breath'),
-    symptoms(fatigue).
-%change
