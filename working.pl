@@ -1,20 +1,20 @@
 :- dynamic(symptoms/1).
 
 % MALARIA SYMPTOMS
-symptoms(fever) :-
-    verify('Do you have a fever? (yes/no) ').
-symptoms(headaches) :-
-    verify('Do you have headaches? (yes/no) ').
-symptoms(chills) :-
-    verify('Do you have chills? (yes/no) ').
-symptoms(muscle_pain) :-
-    verify('Do you have muscle pain? (yes/no) ').
-symptoms(malaise) :-
-    verify('Do you have malaise? (yes/no) ').
-symptoms(nausea) :-
-    verify('Do you have nausea? (yes/no) ').
-symptoms(vomiting) :-
-    verify('Do you have vomiting? (yes/no) ').
+    symptoms(fever) :-
+        verify('Do you have a fever? (yes/no) ').
+    symptoms(headaches) :-
+        verify('Do you have headaches? (yes/no) ').
+    symptoms(chills) :-
+        verify('Do you have chills? (yes/no) ').
+    symptoms(muscle_pain) :-
+        verify('Do you have muscle pain? (yes/no) ').
+    symptoms(malaise) :-
+        verify('Do you have malaise? (yes/no) ').
+    symptoms(nausea) :-
+        verify('Do you have nausea? (yes/no) ').
+    symptoms(vomiting) :-
+        verify('Do you have vomiting? (yes/no) ').
 
 % ARI SYMPTOMS
     %fever
@@ -190,7 +190,7 @@ start :-
 
 diagnose(Name) :-
     disease(X),
-    format('~w, you have ~w', [Name], [X]).
+    format('~w, you might have ~w', [Name, X]).
 
 diagnose(Name) :-
     format('Sorry, ~w. I don''t seem to be able to diagnose the disease.', [Name]).
