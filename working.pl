@@ -1,103 +1,102 @@
-
 :- dynamic(symptoms/1).
 
 % MALARIA SYMPTOMS
 symptoms(fever) :-
-    verify('Do you have a fever? (yes/no)').
+    verify('Do you have a fever? (yes/no) ').
 symptoms(headaches) :-
-    verify('Do you have headaches? (yes/no)').
+    verify('Do you have headaches? (yes/no) ').
 symptoms(chills) :-
-    verify('Do you have chills? (yes/no)').
+    verify('Do you have chills? (yes/no) ').
 symptoms(muscle_pain) :-
-    verify('Do you have muscle pain? (yes/no)').
+    verify('Do you have muscle pain? (yes/no) ').
 symptoms(malaise) :-
-    verify('Do you have malaise? (yes/no)').
+    verify('Do you have malaise? (yes/no) ').
 symptoms(nausea) :-
-    verify('Do you have nausea? (yes/no)').
+    verify('Do you have nausea? (yes/no) ').
 symptoms(vomiting) :-
-    verify('Do you have vomiting? (yes/no)').
+    verify('Do you have vomiting? (yes/no) ').
 
 % ARI SYMPTOMS
     %fever
     %headaches
     %muscle pain
     symptoms(cough) :-
-        verify('Do you have a cough? (yes/no)').
+        verify('Do you have a cough? (yes/no) ').
     symptoms(runny_nose) :-
-        verify('Do you have a runny nose? (yes/no)').
+        verify('Do you have a runny nose? (yes/no) ').
     symptoms(sore_throat) :-
-        verify('Do you have a sore throat? (yes/no)').
+        verify('Do you have a sore throat? (yes/no) ').
     symptoms(nasal_congestion) :- 
-        verify('Do you have a nasal congestion? (yes/no)').
+        verify('Do you have a nasal congestion? (yes/no) ').
 
 % DENGUE SYMPTOMS
     %fever
     %headaches
     %nausea,
     symptoms(vomiting) :-
-        verify('Do you have vomiting? (yes/no)').
+        verify('Do you have vomiting? (yes/no) ').
     symptoms(fatigue) :-
-        verify('Do you have fatigue? (yes/no)').
+        verify('Do you have fatigue? (yes/no) ').
     symptoms(muuscle_joint_pain) :-
-        verify('Do you have muscle and joint pain? (yes/no)').
+        verify('Do you have muscle and joint pain? (yes/no) ').
     symptoms(rashes) :-
-        verify('Do you have rashes? (yes/no)').
+        verify('Do you have rashes? (yes/no) ').
 
 % DIARRHEA SYMPTOMS
     %fever
     %chills
     symptoms(watery_stools) :-
-        verify('Do you have watery stools? (yes/no)').
+        verify('Do you have watery stools? (yes/no) ').
     symptoms(stomach_pain) :-
-        verify('Do you have stomach pain? (yes/no)').
+        verify('Do you have stomach pain? (yes/no) ').
     symptoms(bloating) :-
-        verify('Do you have bloating? (yes/no)').
+        verify('Do you have bloating? (yes/no) ').
     symptoms(body_aches) :-
-        verify('Do you have body aches? (yes/no)').
+        verify('Do you have body aches? (yes/no) ').
 
 % TUBERCULOSIS SYMPTOMS
     %fever,
     %cough,
     symptoms(night_sweats) :-
-        verify('Do you have night sweats? (yes/no)').
+        verify('Do you have night sweats? (yes/no) ').
     symptoms(weight_loss) :-
-        verify('Do you have weight loss? (yes/no)').
+        verify('Do you have weight loss? (yes/no) ').
     symptoms(fatigue) :-
-        verify('Do you have fatigue? (yes/no)').
+        verify('Do you have fatigue? (yes/no) ').
     symptoms(chest_pain) :-
-        verify('Do you have chest pain? (yes/no)').
+        verify('Do you have chest pain? (yes/no) ').
 
 % COVID-19 SYMPTOMS
     %fever,
     %cough,
     %fatigue
     symptoms(shortness_of_breath) :-
-        verify('Do you have shortness of breath? (yes/no)').
+        verify('Do you have shortness of breath? (yes/no) ').
     symptoms(loss_of_taste_or_smell) :-
-        verify('Do you have loss of taste or smell? (yes/no)').
+        verify('Do you have loss of taste or smell? (yes/no) ').
 
 % HEPATITIS B SYMPTOMS
     symptoms(abdominal_pain) :-
-        verify('Do you have abdominal pain? (yes/no)').
+        verify('Do you have abdominal pain? (yes/no) ').
     symptoms(loss_of_appetite) :-
-        verify('Do you have loss of appetite? (yes/no)').
+        verify('Do you have loss of appetite? (yes/no) ').
     symptoms(dark_urine) :-
-        verify('Do you have dark urine? (yes/no)').
+        verify('Do you have dark urine? (yes/no) ').
     symptoms(jaundice) :-
-        verify('Do you have jaundice? (yes/no)').
+        verify('Do you have jaundice? (yes/no) ').
 
 % LEPROSY SYMPTOMS
     symptoms(discolored_skin_patches_or_nodules) :-
-        verify('Do you have discolored skin patches or nodules? (yes/no)').
+        verify('Do you have discolored skin patches or nodules? (yes/no) ').
     symptoms(nerve_damage) :-
-        verify('Do you have nerve damage? (yes/no)').
+        verify('Do you have nerve damage? (yes/no) ').
     symptoms(enlarged_nerves) :-
-        verify('Do you have enlarged nerves? (yes/no)').
+        verify('Do you have enlarged nerves? (yes/no) ').
 
 % SCHISTOSOMIASIS SYMPTOMS
     %rashes
     symptoms(exposure_to_contaminated_water) :-
-        verify('Do you have exposure to contaminated water?').
+        verify('Do you have exposure to contaminated water? ').
 
 % PNEUMONIA SYMPTOMS
     %cough
@@ -106,7 +105,7 @@ symptoms(vomiting) :-
     %fatigue
     %vomiting
     symptoms(bloody_mucus) :-
-        verify('Do you have bloody mucus?').
+        verify('Do you have bloody mucus? ').
 
 disease(malaria) :-
     symptoms(fever),
@@ -181,13 +180,24 @@ disease(pneumonia) :-
     symptoms(vomiting),
     symptoms(bloody_mucus).
 
+
 start :-
+    write('Hi! I am a medical chatbot. What is your name? '),
+    read(Name), 
+    format('Okay, ~w. Please answer the following questions. ', [Name]), nl,
+    
+    diagnose(Name).
+
+diagnose(Name) :-
     disease(X),
-    format('You have ~w', [X]).
+    format('~w, you have ~w', [Name], [X]).
+
+diagnose(Name) :-
+    format('Sorry, ~w. I don''t seem to be able to diagnose the disease.', [Name]).
 
 % TODO 1: ADD A CLEAR FUNCTION FOR SYMPTOMS AFTER DISPLAYING RESULT
 % yung current code kasi need mo irecompile para mareuse ung chatbot
-% TODO 2: MAKE A NOT CONDITION ex. if disease = null, res is unknown
+% TODO 2: MAKE A NOT CONDITION ex. if disease = null, res is unknown  [DONE]
 % nakalagay to sa vid na sinend ni sir jus gotta look for it
 
 
@@ -211,7 +221,6 @@ verify(S) :-
      ask(S))).
 /*
     1. MALARIA
-
     fever
     headaches
     chills
@@ -224,7 +233,6 @@ verify(S) :-
 
 /* 
     2. ACUTE RESPIRATORY INFECTION OR ARI
-
     fever
     headaches
     muscle pain
@@ -237,7 +245,6 @@ verify(S) :-
 
 /*
     3. DENGUE
-
     fever
     headaches
     nausea,
@@ -249,20 +256,17 @@ verify(S) :-
 
 /*
     4. DIARRHEA
-
     fever
     chills
     watery stools,
     stomach pain,
     bloating,
     body aches
-
 */
 
 
 /*
     5. TUBERCULOSIS
-
     fever,
     cough,
     night sweats,
@@ -273,7 +277,6 @@ verify(S) :-
 
 /*
     COVID-19
-
     fever,
     cough,
     fatigue
@@ -292,7 +295,6 @@ verify(S) :-
 
 /*
     LEPROSY
-
     discolored skin patches or nodules
     nerve damage
     enlarged nerves
@@ -300,14 +302,12 @@ verify(S) :-
 
 /*
     SCHISTOSOMIASIS
-
     rashes
     exposure to contaminated water
 */
 
 /*
     PNEUMONIA
-
     cough
     chest pain
     shortness of breath
@@ -315,4 +315,3 @@ verify(S) :-
     vomiting
     bloody mucus
 */
-
