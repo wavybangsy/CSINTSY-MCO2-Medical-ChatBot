@@ -189,6 +189,7 @@ disease(pneumonia) :-
 
 
 start :-
+    reset_symptoms(yes, no),
     write('Hi! I am a medical chatbot. What is your name? '),
     read(Name), 
     write('How old are you? '),
@@ -208,7 +209,11 @@ diagnose(Name, _X) :-
 
 
 :- dynamic(yes/1).
-:- dynamic(no/1).	
+:- dynamic(no/1).
+
+reset_symptoms(yes, no) :-
+    retractall(yes(_)),
+    retractall(no(_)).
 
 ask(Question) :-
 (   (yes(Question); no(Question))
