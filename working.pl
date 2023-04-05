@@ -1,9 +1,3 @@
-% TODO 1: ADD A CLEAR FUNCTION FOR SYMPTOMS AFTER DISPLAYING RESULT
-% yung current code kasi need mo irecompile para mareuse ung chatbot
-% TODO 2: MAKE A NOT CONDITION ex. if disease = null, res is unknown  [DONE]
-% nakalagay to sa vid na sinend ni sir jus gotta look for it
-
-
 :- dynamic(symptoms/1).
 
 % MALARIA SYMPTOMS
