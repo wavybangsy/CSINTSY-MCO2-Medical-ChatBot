@@ -97,8 +97,8 @@
 % SCHISTOSOMIASIS SYMPTOMS
     %rashes
     symptoms(exposure_to_contaminated_water) :-
-        verify('Do you have exposure to contaminated water? (y/n) '),
-        verify('Was your exposure 1-2 months ago? (y/n) ').
+        verify('Do you have exposure to contaminated water? (yes/no) '),
+        verify('Was your exposure 1-2 months ago? (yes/no) ').
 
 % PNEUMONIA SYMPTOMS
     %cough
