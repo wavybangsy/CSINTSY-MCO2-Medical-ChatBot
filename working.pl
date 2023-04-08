@@ -32,13 +32,14 @@
 % DENGUE SYMPTOMS
     %fever
     %headaches
-    %nausea,
+    %muscle pain
+    %nausea
     symptoms(vomiting) :-
         verify('Do you have vomiting? (yes/no) ').
     symptoms(fatigue) :-
         verify('Do you have fatigue? (yes/no) ').
-    symptoms(muscle_joint_pain) :-
-        verify('Do you have muscle and joint pain? (yes/no) ').
+    symptoms(joint_pain) :-
+        verify('Do you have joint pain? (yes/no) ').
     symptoms(rashes) :-
         verify('Do you have rashes? (yes/no) ').
 
@@ -129,10 +130,11 @@ disease('acute respiratory infection') :-
 disease(dengue) :-
     symptoms(fever),
     symptoms(headaches),
+    symptoms(muscle_pain),
     symptoms(nausea),
     symptoms(vomiting),
     symptoms(fatigue),
-    symptoms(muscle_joint_pain),
+    symptoms(joint_pain),
     symptoms(rashes).
     
 disease(diarrhea) :-
@@ -324,7 +326,8 @@ diagnosis(pneumonia, _Age) :-
     nausea,
     vomiting,
     fatigue,
-    muscle and joint pain,
+    muscle pain,
+    joint pain,
     rashes
 */
 
@@ -350,7 +353,7 @@ diagnosis(pneumonia, _Age) :-
 */
 
 /*
-    COVID-19
+    6. COVID-19
     fever,
     cough,
     fatigue
@@ -359,8 +362,7 @@ diagnosis(pneumonia, _Age) :-
 */
 
 /*
-    HEPATITIS B
-    
+    7. HEPATITIS B 
     abdominal pain
     loss of appetite
     dark urine
@@ -368,20 +370,20 @@ diagnosis(pneumonia, _Age) :-
 */
 
 /*
-    LEPROSY
+    8. LEPROSY
     discolored skin patches or nodules
     nerve damage
     enlarged nerves
 */
 
 /*
-    SCHISTOSOMIASIS
+    9. SCHISTOSOMIASIS
     rashes
     exposure to contaminated water
 */
 
 /*
-    PNEUMONIA
+    10. PNEUMONIA
     cough
     chest pain
     shortness of breath
