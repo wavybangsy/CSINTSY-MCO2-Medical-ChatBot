@@ -186,7 +186,10 @@ disease(pneumonia) :-
 
 start :-
     reset_symptoms(yes, no),
-    write('Hi! I am a medical chatbot. What is your name? '),
+    write('Hi! I am a medical chatbot. I am here to help you determine what disease you might have.'), nl,
+    write('However, it is still highly recommended that you will contact a medical professional.'), nl,
+    write('NOTE: This chatbot is highly case-sensitive. Please only use lower cases and end it with a period when entering inputs.'), nl, nl,
+    write('Let us start! What is your name? '),
     read(Name), 
     write('How old are you? '),
     read(Age), 
@@ -276,7 +279,7 @@ diagnosis(tuberculosis, _Age) :-
 
 diagnosis('COVID-19', _Age) :-
     write('Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus. '),
-    write('In most cases, infected people self-isolte for at least 10 days, until almost all symptoms are gone.'), nl,
+    write('In most cases, infected people self-isolate for at least 10 days, until almost all symptoms are gone.'), nl,
     write('You may want to contact your healthcare provider for testing and isolation duration.').
 
 diagnosis('Hepatitis B', _Age) :-
