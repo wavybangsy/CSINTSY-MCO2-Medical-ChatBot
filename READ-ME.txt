@@ -1,0 +1,22 @@
+GOOD DAY!
+We are Grp 1 from section S12 with the members:
+Alejo, Gene Cedric
+Cabungcal, Mary Joselle
+Culala, Mary Erika
+Uy, Gleezel Vina
+Wang, Jeremy Cerwin
+
+To use our medical chatbot, you must do the following:
+1. Download the PROLOG first through this website: https://www.swi-prolog.org/download/stable, make sure that the installer is compatible with your machine.
+2. Open the swipl-win to start the PROLOG. (You can find it in the bin folder of swipl in Program Files directory)
+3. Make sure that your working directory is in the same path where you have installed our .pl file. To do that:
+	- type "working_directory(CWD, '[path of the .pl file]')." then enter. 
+		Example: working_directory(CWD, 'D:/Downloads/PrologApp').
+	- check if the directory has been changed by typing "pwd."
+4. Compile the .pl first by typing "[mco2]."
+5. Finally, run the PROLOG program by typing "start."
+
+NOTE: PROLOG is case sensitive, make sure you type in lower case and put "." (period) in each input.
+
+
+Thank you for using our medical chat bot! Have fun!
