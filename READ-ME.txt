@@ -7,6 +7,14 @@ Uy, Gleezel Vina
 Wang, Jeremy Cerwin
 
 To use our medical chatbot, you must do the following:
+1. Make sure that the mco2.pl is in the same directory as mco2.exe
+2. Run the mco2.exe
+3. Type '[mco2].' to compile the pl first.
+4. Type 'start.' to use the Chatbot and follow the instructions indicated.
+
+NOTE: PROLOG is case sensitive, make sure you type in lower case and put "." (period) in each input.
+
+In case there are problems in the program, you may do the following:
 1. Download the PROLOG first through this website: https://www.swi-prolog.org/download/stable, make sure that the installer is compatible with your machine.
 2. Open the swipl-win to start the PROLOG. (You can find it in the bin folder of swipl in Program Files directory)
 3. Make sure that your working directory is in the same path where you have installed our .pl file. To do that:
